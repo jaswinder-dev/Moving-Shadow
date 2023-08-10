@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Shadow</title>
+
+    <!-- custom style sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="shadow"></div> <!--this will move with the movement of mouse pointer-->
+
+    <div class="container"></div> <!--content will be added dynamically (javascript)-->
+
+    <script type="text/javascript">
+
+        // fill the 'container' with hexagons
+        let container = document.querySelector(".container");
+        let shadow = document.querySelector('.shadow');
+        let isEvenIndexed = false;  //if the row is with even index number.
+        let totalCols = 0;
+
+        for (let i = 1; i <= 18; i++) {
+            
+            container.innerHTML += `<div class='row row${i}'></div>`;
+
+            if(isEvenIndexed){ //if the row just created, is with even index number
+                totalCols = 29;
+                isEvenIndexed = false;
+            }else{
+                totalCols = 28;
+                isEvenIndexed = true;
+            }
+
+            for (let j = 1; j <= totalCols; j++) {
+                
+                let html = `<div class='box'> <div class='hexagon'></div> </div>`;
+                container.querySelector(`.row${i}`).innerHTML += html;
+                
+            }
+            
+        }
+
+        window.addEventListener('mousemove', (e) => {  //moving the shadow with mouse movement.
+            let x = e.clientX;
+            let y = e.clientY;
+
+            shadow.style.top = `${y}px`;
+            shadow.style.left = `${x}px`;
+        });
+
+    </script>
+    
+</body>
+</html>
